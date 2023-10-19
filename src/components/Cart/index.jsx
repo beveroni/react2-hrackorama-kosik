@@ -34,15 +34,22 @@ const Cart = () => {
     setCartProducts(newProducts);
   };
 
+  const cartAmount = () => {
+    return cartProducts.reduce((prevValue, value) => {
+      return (prevValue += value.amount);
+    }, 0);
+  };
+
   return (
     <div className="cart">
       <div className="cart__head">
         <h2>Košík</h2>
-        <span>Položek: 1</span>
+        <span>Položek: {cartAmount()}</span>
       </div>
       <div className="cart__items">
         {cartProducts.map((product, index) => (
           <CartItem
+            key={product.name}
             product={product}
             onAmountChange={(amount) => {
               handleAmountChange(index, amount);
